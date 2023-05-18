@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include "Model.h"
 #include "WorldTransform.h"
+#include "Function.h"
+#include "Input.h"
+
 class Player
 {
 	/// <summary>
@@ -31,7 +34,9 @@ private:
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	 Player* player_ = nullptr;
-	//
+	//キーボード入力
+	 Input* input_ = nullptr;
+
 	
 };
 
