@@ -7,11 +7,12 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() 
 {
-	//モデルの開放
-	delete model_;
-	//自キャラの解放
-	delete player_;
+//	//モデルの開放
+//	delete model_;
+//	//自キャラの解放
+//	delete player_;
 	delete debugCamera_;
+	
 }
 
 void GameScene::Initialize() {
@@ -66,8 +67,8 @@ void GameScene::Update()
 	cameraMatrix.m[2][3] = 1.0f;
 
 #ifdef _DEBUG
-	//デバックの頭文字
-	if (input_->TriggerKey(DIK_D))
+	//デバック
+	if (input_->TriggerKey(DIK_Q))
 	{
 		isDebgCameraActive_ = true;
 	}

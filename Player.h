@@ -4,9 +4,14 @@
 #include "Function.h"
 #include "Input.h"
 #include"PlayerBullet.h"
+#include <list>
 
 class Player
 {
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~Player();
 	/// <summary>
 	/// 自キャラ
 	/// </summary>
@@ -30,7 +35,8 @@ public:
 	// 攻撃
 	/// </summary>
 	void Attack();
-
+	//弾
+	std::list<PlayerBullet*> bullets_;
 
 private:
 
