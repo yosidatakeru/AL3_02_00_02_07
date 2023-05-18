@@ -34,26 +34,44 @@ void Player::Update()
 	if (input_->PushKey(DIK_LEFT)) 
 	{
 		move.x -= kCharacterSpeed;
-	} else if (input_->PushKey(DIK_RIGHT)) 
+	}
+	else if (input_->PushKey(DIK_RIGHT)) 
 	{
 		move.x += kCharacterSpeed;
-	} else {
-		move.x = 0.0f;
-		move.y = 0.0f;
 	}
-
-
-	if (input_->PushKey(DIK_DOWN))
+	else if(input_->PushKey(DIK_DOWN)) 
 	{
-		move.y -= kCharacterSpeed;
-	} else if (input_->PushKey(DIK_UP))
+		move.y -= kCharacterSpeed; 
+	}
+	else if (input_->PushKey(DIK_UP))
 	{
 		move.y += kCharacterSpeed;
-	} else 
-	{
+	}
+	else {
 		move.x = 0.0f;
 		move.y = 0.0f;
 	}
+
+
+	 
+	//回転速さ[ラジアン/frame]
+	const float kRotSpeed = 0.02f;
+	//押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_A))
+	{
+		worldTransform_.rotation_.y -= kRotSpeed;
+	}
+	if (input_->PushKey(DIK_D))
+	{
+		worldTransform_.rotation_.y += kRotSpeed;
+	}
+	//キャラクターの攻撃処理
+	Attack();
+	if (bullet_)
+	{
+		bullet_->Update();
+	}
+	
 	// 移動の限界
 	const float MOVE_LIMITX = 30.0f;
 	const float MOVE_LIMITY = 18.0f;
@@ -80,9 +98,28 @@ void Player::Update()
 	ImGui::End();
 }
 
+void Player::Attack() 
+{
+	// SPACEキーで発射
+	if (input_->TriggerKey(DIK_SPACE)) 
+	{
 
+		// 弾を生成し、初期化
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initalize(model_, worldTransform_.translation_);
+
+		// 弾を登録する
+		
+		bullet_ = (newBullet);
+	}
+}
 
 void Player::Draw(ViewProjection viewProjection_) 
 { 
 	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
+	//弾描画
+	if (bullet_)
+	{
+		bullet_->Draw(viewProjection_);
+	}
 }
