@@ -111,6 +111,15 @@ void Player::Update()
 	ImGui::SliderFloat3("PlayerSlide", &worldTransform_.translation_.x, -20.0f, 30.0f);
 
 	ImGui::End();
+
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+
 }
 
 void Player::Attack() 
@@ -118,13 +127,21 @@ void Player::Attack()
 	// SPACEキーで発射
 	if (input_->TriggerKey(DIK_SPACE)) 
 	{
-		 
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(0, 0, kBulletSpeed);
+
+	
+	
+		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initalize(model_, worldTransform_.translation_);
+		newBullet->Initalize(model_, worldTransform_.translation_,velocity);
 
 		// 弾を登録する
 		bullets_.push_back(newBullet);
+
+		
+
 	}
 }
 
