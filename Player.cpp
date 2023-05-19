@@ -4,6 +4,7 @@
 #include <ImguiManager.h>
 void Player::Initialize(Model* model, uint32_t textureHandle) 
 {
+
 	assert(model);
 	// 引数として受け取ったデータをメンバ変数に記録する
 	this -> model_ = model;
