@@ -1,6 +1,7 @@
 ﻿#include <cassert>
 #include <cmath>
 #include "Function.h"
+
 Vector3 Add(const Vector3 v1, const Vector3 v2) {
 	Vector3 result = {};
 	result.x = v1.x + v2.x;
