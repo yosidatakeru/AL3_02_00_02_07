@@ -5,6 +5,18 @@
 class Enemy
 {
 public:
+
+	//行動フェーズ
+	enum class Phase
+	{
+		Approach,//接近する
+		Leave,//離脱する
+	};
+	//フェーズ
+	Phase phase_ = Phase::Approach; // 初期フェーズ
+
+	
+    
 	Vector3 velocity_;
 	//	//Vector3 velociy_;
 //	/// <summary>
